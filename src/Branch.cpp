@@ -36,7 +36,7 @@ unordered_map<string, string> loadCommitBlobs(const string &commitHash) {
     ifstream fin(".minigit/commits/" + commitHash);
     string line;
     while (getline(fin, line)) {
-        if (line.starts_with("file ")) {
+        if (line.rfind("file ",0)==0) {
             string fname, blob;
             istringstream iss(line);
             iss >> fname >> fname >> blob; // skip "file"
@@ -80,7 +80,7 @@ string getParent(const string &commitHash) {
     ifstream fin(".minigit/commits/" + commitHash);
     string line;
     while (getline(fin, line)) {
-        if (line.starts_with("parent ")) {
+        if (line.rfind("parent ",0)==0) {
             return line.substr(7);
         }
     }
@@ -138,4 +138,5 @@ void mergeBranch(const string &otherBranch) {
   
     string mergeMsg = "Merged branch '" + otherBranch + "' into '" + currentBranch + "'";
     string tempBlob = currentCommit + otherCommit + mergeMsg;
-    string newCommitHash = to_string(hash<string>{}(tempBlob));#include "../include/Branch.h"
+    string newCommitHash = to_string(hash<string>{}(tempBlob));
+}

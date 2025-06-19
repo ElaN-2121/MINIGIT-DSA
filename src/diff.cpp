@@ -3,7 +3,7 @@
 #include <iostream>
 #include <unordered_set>
 
-extern std::unordered_map <std::string, commit> commitDatabase;
+extern std::unordered_map <std::string, Commit> commitDatabase;
 
 void showDiff(const std::string& hash1, const std::string& hash2){
     if (commitDatabase.find(hash1)==commitDatabase.end()||commitDatabase.find(hash2)==commitDatabase.end()){
@@ -30,7 +30,7 @@ void showDiff(const std::string& hash1, const std::string& hash2){
             std::string content2=c2.fileContents.at(f);
             if(content1!=content2){
                 std::cout <<"Modified: "<<f<<"\n";
-                std:cout<<" -Old: "<<content1<<"\n";
+                std::cout<<" -Old: "<<content1<<"\n";
                 std::cout<<" +New: "<<content2<<"\n";
             }
         }

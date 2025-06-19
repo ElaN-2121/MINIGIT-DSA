@@ -56,4 +56,4 @@ void Reference::setRef(const std::string& refName, const std::string& hash) {
     }
     
 }
-//
+

@@ -1,3 +1,4 @@
+#include "../include/Commit.h"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
@@ -5,7 +6,7 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-void commit(string message){
+void commit(const string& message){
     time_t now= time(0);
     string commit_id = to_string(now);
     string commit_folder= "vcs/commits/" + commit_id;

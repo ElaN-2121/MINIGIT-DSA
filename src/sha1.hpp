@@ -327,7 +327,7 @@ inline std::string SHA1::from_file(const std::string &filename)
     checksum.update(stream);
     return checksum.final();
 }
-std::string SHA1::from_string(const std::string &str){
+inline std::string SHA1::from_string(const std::string &str){
     SHA1 sha1;
     sha1.update(str);
     return sha1.final();
