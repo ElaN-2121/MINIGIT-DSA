@@ -1,13 +1,14 @@
 #include <iostream>
 #include "Init.h"
-#include "add.h" 
+#include "StagingArea.h" 
 #include "Commit.h"
 #include "Blob.h"
 #include "Branch.h"
 #include "Checkout.h"
-#include "Merge.h"
 #include "Reference.h"
-#include "StagingArea.h"
+#include "CommitDatabase.h"
+#include "Diff.h"
+#include "Log.h"
 
 using namespace std;
 
