@@ -19,12 +19,59 @@ int main(){
         getline(cin, cmd);
 
         if(cmd=="init"){
-
+            initRepository();
+        }
+        else if (cmd=="add"){
+            string filename;
+            cin>>filename;
+            addFileToStorage(filename);
+        }
+        else if(cmd=="commit"){
+            string message;
+            cin.ignore();
+            getline(cin, message);
+            commit(message);
+        }
+        else if(cmd=="log"){
+            showLog();
+        }
+        else if(cmd=="checkout"){
+            string target;
+            cin>>target;
+            checkout(target);
+        }
+        else if(cmd=="diff"){
+            string c1,c2;
+            cin>>c1>>c2;
+            showDiff(c1,c2);
+        }
+        else if(cmd=="branch"){
+            string branchName;
+            cin>>branchName;
+            createBranch(branchName);
+        }
+        else if(cmd=="merge"){
+            string otherBranch;
+            cin>>otherBranch;
+            mergeBranch(otherBranch);
         }
         else if(cmd=="exit"){
             cout<<"Leaving MiniGit....\n";
             break;
-        }else{
+        }
+        else if (cmd=="help"){
+            cout<<"\nList of Commands: \n"
+                <<"init - Initializes a repository\n"
+                <<"add<file> - Stages a file\n"
+                <<"commit - Commit staged changes\n"
+                <<"log - View commit log\n"
+                <<"checkout <id> Checkout commit or branch\n"
+                <<"diff<c1><c2> - Show file differences\n"
+                <<"branch<name> - Create new branch\n"
+                <<"merge<branch> Merge branch\n"
+                <<"exit - Exits MiniGit\n";
+        }
+        else{
             cout<<"Unknown command "<<cmd<< " has been entered"<<endl;
         }
     }
