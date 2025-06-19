@@ -1,24 +1,18 @@
 #include "reference.h"
 #include <fstream>
-
 #include <iostream>
 
 std::string Reference::getHEAD() {
-	
     std::ifstream headFile(".minigit/HEAD");
     std::string line;
     if (headFile.is_open()) {
-    	
         std::getline(headFile, line);
         headFile.close();
         return line;
-        
     } else {
         std::cerr << "Failed to open HEAD file\n";
         return "";
-        
     }
-    
 }
 
 void Reference::setHEAD(const std::string& ref) {
@@ -45,15 +39,15 @@ std::string Reference::getRef(const std::string& refName) {
 }
 
 void Reference::setRef(const std::string& refName, const std::string& hash) {
+	
     std::ofstream refFile( (".minigit/" + refName).c_str() );
     if (refFile.is_open()) {
         refFile << hash << "\n";
         refFile.close();
     } else {
     	
-        std::cerr << "Failed to write ref file: " << refName <<"\n";
+        std::cerr << "Failed to write ref file: " << refName << "\n";
     }
     
 }
 //
-

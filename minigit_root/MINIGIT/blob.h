@@ -5,6 +5,7 @@
 #include <string>
 
 class Blob{
+	
 public:
     Blob(const std::string& filename);
     void save();

@@ -4,6 +4,7 @@
 #include <string>
 
 class Reference {
+	
 public:
     std::string getHEAD();
     void setHEAD(const std::string& ref);
