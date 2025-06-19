@@ -1,0 +1,1 @@
+This file contains important notes about MiniGit.
