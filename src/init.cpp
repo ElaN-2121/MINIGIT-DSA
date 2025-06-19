@@ -1,7 +1,7 @@
 // init.cpp
 #include <iostream>
 #include <fstream>
-#include "init.h"
+#include "../include/init.h"
 
 #ifdef _WIN32
 #include <direct.h>
