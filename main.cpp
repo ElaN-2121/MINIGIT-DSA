@@ -9,7 +9,6 @@
 #include "CommitDatabase.h"
 #include "Diff.h"
 #include "Log.h"
-#include "sha1.hpp"
 
 using namespace std;
 
