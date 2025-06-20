@@ -4,6 +4,8 @@
 #include <sstream>
 #include <unordered_map>
 #include <set>
+#include <ctime>
+#include <functional>
 
 namespace fs = std::filesystem;
 
@@ -99,6 +101,13 @@ string findLCA(string a, string b) {
     }
     return "";
 }
+string currentDateTime(){
+    time_t now=time(0);
+    tm*ltm = localtime(&now);
+    char buf[30];
+    strftime(buf,sizeof(buf), "%Y-%m-%d  %H:%M:%S", ltm);
+    return string(buf);  
+}
 
 
 void mergeBranch(const string &otherBranch) {
@@ -134,9 +143,35 @@ void mergeBranch(const string &otherBranch) {
             cout << "CONFLICT: both modified " << file << endl;
         }
     }
+    for (const auto& [file, blobHash]:result){
+        if(blobHash.empty()) continue;
+        ifstream bin(".minigit/objects/"+ blobHash);
+        if(!bin.is_open()) continue;
 
-  
+        ofstream fout(file);
+        fout<<bin.rdbuf();
+        bin.close();
+        fout.close();
+    }
     string mergeMsg = "Merged branch '" + otherBranch + "' into '" + currentBranch + "'";
     string tempBlob = currentCommit + otherCommit + mergeMsg;
     string newCommitHash = to_string(hash<string>{}(tempBlob));
+
+    ofstream commitFile(".minigit/commits/"+ newCommitHash);
+    commitFile<<"hash "<<newCommitHash<<"\n";
+    commitFile<<"parent "<<currentCommit<<"\n";
+    commitFile<<"parent2 "<<otherCommit<<"\n";
+    commitFile<<"timestamp "<<currentDateTime()<<"\n";
+    commitFile<<"message "<<mergeMsg<<"\n";
+
+    for( const auto&[file, blobHash]:result){
+        commitFile<<"file "<<file<<" "<<blobHash<<"\n";
+    }
+
+    commitFile.close();
+    ofstream refOut(".minigit/refs/heads/"+ currentBranch);
+    refOut<<newCommitHash;
+    refOut.close();
+    cout<<"Merge completed and new commit created: "<<newCommitHash<<"\n";
 }
+
