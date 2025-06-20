@@ -17,10 +17,10 @@ using namespace std;
 
 int main(){
     StagingArea staging;
+    string fullInput;
     cout<<"Welcome to MiniGit! Type \"help\" to see available commands";
     while (true){
         cout<<"#";
-        string fullInput;
         getline(cin, fullInput);
         istringstream iss(fullInput);
         string cmd;
@@ -41,14 +41,14 @@ int main(){
         }
         else if(cmd=="commit"){
             string message;
-            getline(iss,message);
+            getline(iss>>std::ws,message);
             if(message.empty()){
                 cout<<"Commit Message Can Not be Empty!\n";
             }
             else{
                 if(!message.empty()&&message[0]==' '){
                     message.erase(0,1);
-                }commit(message);
+                }commit(message, staging);
             }  
         }
         else if(cmd=="log"){
