@@ -38,7 +38,7 @@ void init() {
     }
 
     // Create an empty master branch file
-    std::ofstream master(".minigit" +sep+ " refs" +sep+ "heads" +sep+ "master");
+    std::ofstream master(".minigit" +sep+ "refs" +sep+ "heads" +sep+ "master");
     if (master.is_open()) {
         master << "";  // Empty, no commits yet
         master.close();
