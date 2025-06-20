@@ -13,6 +13,6 @@ struct Commit{
     std::vector<std::string> files;
     std::unordered_map<std::string , std::string> fileContents;
 };
-void commit(const std::string& message);
+void commit(const std::string& message, StagingArea& staging);
 
 #endif
