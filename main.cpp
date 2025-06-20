@@ -16,7 +16,7 @@
 using namespace std;
 
 int main(){
-    Staging Area staging;
+    StagingArea staging;
     cout<<"Welcome to MiniGit! Type \"help\" to see available commands";
     while (true){
         cout<<"#";
