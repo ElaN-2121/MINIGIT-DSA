@@ -18,7 +18,7 @@ void printLog(const std::string& headHash){
       else if (line.rfind("parent",0)==0) parent=line.substr(7);    
     }
     std::cout<<"Commit: "<<hash<<"\n";
-    std::cout<<"Date: "<<timestamp<<"\n";
+    std::cout<<"Date: "<<date<<"\n";
     std::cout<<"Message: "<<message<<"\n\n";
     current=parent;
   }
