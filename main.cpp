@@ -1,4 +1,7 @@
 #include <iostream>
+#include <sstream>
+#include<string>
+
 #include "Init.h"
 #include "StagingArea.h" 
 #include "Commit.h"
@@ -13,25 +16,40 @@
 using namespace std;
 
 int main(){
-    string cmd;
+    Staging Area staging;
+    cout<<"Welcome to MiniGit! Type \"help\" to see available commands";
     while (true){
         cout<<"#";
-        getline(cin, cmd);
+        string fullInput;
+        getline(cin, fullInput);
+        istringstream iss(fullInput);
+        string cmd;
+        iss>>cmd;
 
         if(cmd=="init"){
             init();
         }
         else if (cmd=="add"){
             string filename;
-            cin>>filename;
-            StagingArea staging;
-            staging.addFile(filename);
+            iss>>filename;
+            if (filename.empty()){
+                cout<<"Please enter a file name to add\n";
+            }
+            else{
+                staging.addFile(filename);
+            }
         }
         else if(cmd=="commit"){
             string message;
-            cin.ignore();
-            getline(cin, message);
-            commit(message);
+            getline(iss,message);
+            if(message.empty()){
+                cout<<"Commit Message Can Not be Empty!\n";
+            }
+            else{
+                if(!message.empty()&&message[0]==' '){
+                    message.erase(0,1);
+                }commit(message);
+            }  
         }
         else if(cmd=="log"){
             std::string headHash=getHEAD();
@@ -39,23 +57,43 @@ int main(){
         }
         else if(cmd=="checkout"){
             string target;
-            cin>>target;
+            iss>>target;
+            if(target.empty()){
+                cout<<"Please enter a commit hash or branch name to checkout.\n";
+            }
+            else{
             checkout(target);
+            }
         }
         else if(cmd=="diff"){
             string c1,c2;
-            cin>>c1>>c2;
-            showDiff(c1,c2);
+            iss>>c1>>c2;
+            if(c1.empty() || c2.empty()){
+                cout<<"Please enter two commits to diff.\n";
+            }
+            else{
+                showDiff(c1,c2);
+            }
         }
         else if(cmd=="branch"){
             string branchName;
-            cin>>branchName;
-            createBranch(branchName);
+            iss>>branchName;
+            if(branchName.empty()){
+                cout<<"Please provide a branch name.\n";
+            }
+            else{
+                createBranch(branchName);
+            }
         }
         else if(cmd=="merge"){
             string otherBranch;
-            cin>>otherBranch;
-            mergeBranch(otherBranch);
+            iss>>otherBranch;
+            if(otherBranch.empty()){
+                cout<<"please provide a branch to merge.\n";
+            }
+            else{
+                mergeBranch(otherBranch);
+            }
         }
         else if(cmd=="exit"){
             cout<<"Leaving MiniGit....\n";
