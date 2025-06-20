@@ -4,6 +4,7 @@
 #include<string>
 #include <vector>
 #include <unordered_map>
+#include "StagingArea.h"
 
 struct Commit{
     std::string hash;

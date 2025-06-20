@@ -1,6 +1,7 @@
 #include "../include/Reference.h"
 #include <fstream>
 #include <iostream>
+#include "Utils.h"
 
 #ifdef _WIN32
 #include <direct.h>
@@ -10,6 +11,24 @@ const std::string sep="\\";
 const std::string sep="/";
 #endif
 
+
+std::string getHeadCommitHash(){
+    Reference ref;
+    std::string branch = ref.getHEAD();
+    if(branch.empty()) return "";
+
+    std::ifstream branchFile(",minigit/branches/"+branch+".txt");
+    std::string commitHash;
+    if(branchFile.is_open()){
+        std::getline(branchFile,commitHash);
+        branchFile.close();
+        return trim(commitHash);
+    }
+    else{
+        std::cerr<<"failed to open branch file";
+        return "";
+    }
+}
 std::string Reference::getHEAD() {
     std::ifstream headFile(".minigit" +sep+ "HEAD");
     std::string line;

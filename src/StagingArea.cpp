@@ -27,6 +27,7 @@ void StagingArea::addFile(const std::string& filename){
         std::cout<< "File " << filename <<" unchanged. Blob creation is not done.\n";
     }
     stagedFiles[filename] =hash;
+    
 }
 
 //Showing All Staged Files
