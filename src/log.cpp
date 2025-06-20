@@ -14,8 +14,8 @@ void printLog(const std::string& headHash){
     while (getline(fin,line)){
       if(line.rfind("hash",0)==0) hash=line.substr(5);
       else if (line.rfind("timestamp",0)==0) date=line.substr(10);
-      else if (line.rfind("message",0)==0) date=line.substr(8);
-      else if (line.rfind("parent",0)==0) date=line.substr(7);    
+      else if (line.rfind("message",0)==0) message=line.substr(8);
+      else if (line.rfind("parent",0)==0) parent=line.substr(7);    
     }
     std::cout<<"Commit: "<<hash<<"\n";
     std::cout<<"Date: "<<timestamp<<"\n";
