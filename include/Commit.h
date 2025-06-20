@@ -9,9 +9,10 @@ struct Commit{
     std::string hash;
     std::string message;
     std::string parent;
+    std::string timestamp;
     std::vector<std::string> files;
     std::unordered_map<std::string , std::string> fileContents;
 };
 void commit(const std::string& message);
 
-#endif;
+#endif

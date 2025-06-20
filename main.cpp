@@ -9,6 +9,7 @@
 #include "CommitDatabase.h"
 #include "Diff.h"
 #include "Log.h"
+#include "sha1.hpp"
 
 using namespace std;
 
@@ -19,12 +20,13 @@ int main(){
         getline(cin, cmd);
 
         if(cmd=="init"){
-            initRepository();
+            init();
         }
         else if (cmd=="add"){
             string filename;
             cin>>filename;
-            addFileToStorage(filename);
+            StagingArea staging;
+            staging.addFile(filename);
         }
         else if(cmd=="commit"){
             string message;
@@ -33,7 +35,8 @@ int main(){
             commit(message);
         }
         else if(cmd=="log"){
-            showLog();
+            std::string headHash=getHEAD();
+            printLog(headHash);
         }
         else if(cmd=="checkout"){
             string target;
